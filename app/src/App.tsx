@@ -175,8 +175,8 @@ function AppContent() {
         setStartupProgress({ stage: "account", percent: 82 });
         const ok = await invoke<boolean>("cmd_check_connection");
         if (ok) {
-          setStartupProgress({ stage: "sponsor", percent: 96 });
-          setAuthStatus("sponsor-check");
+          setStartupProgress({ stage: "account", percent: 100 });
+          setAuthStatus("authenticated");
         } else {
           setAuthStatus("unauthenticated");
         }
@@ -315,7 +315,7 @@ function AppContent() {
       )}
       {authStatus === "unauthenticated" && (
         <Suspense fallback={<div className="h-screen bg-telegram-bg" />}>
-          <AuthWizard onLogin={() => setAuthStatus("sponsor-check")} />
+          <AuthWizard onLogin={() => setAuthStatus("authenticated")} />
         </Suspense>
       )}
     </main>

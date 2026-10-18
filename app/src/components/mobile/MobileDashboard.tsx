@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import { BottomNavBar } from './BottomNavBar';
 import { TouchFileList } from './TouchFileList';
 import { ThemeToggle } from '../shared/ThemeToggle';
-import AdsterraBanner from '../shared/AdsterraBanner';
 import { DriveConceptTour } from '../desktop/dashboard/DriveConceptTour';
 import { ActionPopover, ActionItem } from './ActionPopover';
 import { ShareDialog } from '../desktop/dashboard/ShareDialog';
@@ -1626,16 +1625,6 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
 
       {/* Floating Bottom Nav Bar */}
       <BottomNavBar activeTab={activeTab} setActiveTab={setActiveTab} isAndroid={isAndroid} isTelevision={isTelevision} />
-
-      {/* Adsterra Banner (Android only) — z-[60] keeps it above the BottomNavBar (z-50).
-           Positioned at bottom-[144px] to sit cleanly above the nav bar (~60px tall, at bottom-20=80px). */}
-      <div className={`fixed bottom-[144px] left-0 right-0 z-[60] ${isTelevision ? 'tv-sponsor-placement' : ''}`}>
-        <AdsterraBanner
-          visible={adVisible}
-          onSupport={openMobileSupporter}
-          onManualDismiss={() => showSupporterOffer('ad_dismissed')}
-        />
-      </div>
 
       {/* Previews Overlays (Media, PDF & Images) */}
       {playingFile && (

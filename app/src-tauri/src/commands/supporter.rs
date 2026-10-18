@@ -804,8 +804,7 @@ fn recovery_presence_for_status(
 static SPONSOR_OFFLINE_UNTIL: std::sync::atomic::AtomicI64 = std::sync::atomic::AtomicI64::new(0);
 
 pub(crate) fn sponsor_requests_suppressed() -> bool {
-    let until = SPONSOR_OFFLINE_UNTIL.load(std::sync::atomic::Ordering::Acquire);
-    until > 0 && unix_time() <= until
+    true
 }
 
 fn cache_verified_access(claims: &EntitlementClaims, now: i64) {
@@ -938,10 +937,18 @@ fn status_from_state(state: &SupporterLocalState) -> Result<SupporterStatus, Str
 }
 
 #[tauri::command]
-pub async fn cmd_get_supporter_status(app: AppHandle) -> Result<SupporterStatus, String> {
-    let _operation = supporter_operation().await;
-    let state = load_state(&app)?;
-    status_from_state(&state)
+pub async fn cmd_get_supporter_status(_app: AppHandle) -> Result<SupporterStatus, String> {
+    Ok(SupporterStatus {
+        state: "active",
+        ad_free: true,
+        message: "TeleDrive ad-free is permanently active.".to_string(),
+        terms_version: TERMS_VERSION,
+        terms_url: None,
+        expires_at: None,
+        offline_until: None,
+        recovery_code_saved: true,
+        checkout_pending: false,
+    })
 }
 
 #[tauri::command]

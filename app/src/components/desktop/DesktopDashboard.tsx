@@ -34,7 +34,6 @@ import { ExternalDropBlocker } from './dashboard/ExternalDropBlocker';
 import type { SettingsTab } from './dashboard/SettingsModal';
 import { RenameFolderModal } from './dashboard/RenameFolderModal';
 import { RenameFileModal } from './dashboard/RenameFileModal';
-import { DesktopAdBanner } from './dashboard/DesktopAdBanner';
 import { RemoteUploadModal } from './dashboard/RemoteUploadModal';
 import { KeyboardShortcutsDialog } from './dashboard/KeyboardShortcutsDialog';
 import { DriveConceptTour } from './dashboard/DriveConceptTour';
@@ -1048,16 +1047,6 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
                     onOpenSupporter={() => { setSupporterOfferTrigger(null); setSettingsInitialTab('license'); setFocusSupporter(true); setShowSettings(true); }}
                 /></LazyFeatureBoundary>
             )}
-
-            <DesktopAdBanner
-                suppressed={
-                    uploadQueue.some(item => ['pending', 'uploading', 'downloading', 'encrypting', 'verifying'].includes(item.status))
-                    || downloadQueue.some(item => ['pending', 'cooldown', 'downloading', 'decrypting', 'verifying'].includes(item.status))
-                    || Boolean(previewFile || playingFile || pdfFile || archiveViewFile || showSettings || showMoveModal || shareFile || showRemoteUpload || showHelp || supporterOfferTrigger || !settings.driveTourSeen)
-                }
-                onSupport={() => { setSettingsInitialTab('license'); setFocusSupporter(true); setShowSettings(true); }}
-                onManualDismiss={() => showSupporterOffer('ad_dismissed')}
-            />
 
             {shareFile && shareOwnerId && (
                 <LazyFeatureBoundary>

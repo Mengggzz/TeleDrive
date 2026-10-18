@@ -620,25 +620,12 @@ mod desktop_ads {
         }
     }
 
-    fn gated_response(port: u16) -> Option<HttpResponse> {
-        if crate::commands::supporter::sponsor_requests_suppressed() {
-            return Some(
-                HttpResponse::NoContent()
-                    .insert_header(("Cache-Control", "no-store"))
-                    .finish(),
-            );
-        }
-        let state = super::AD_LISTENER
-            .lock()
-            .unwrap_or_else(|error| error.into_inner());
-        if state.separate && port != state.port {
-            return Some(
-                HttpResponse::NotFound()
-                    .insert_header(("Cache-Control", "no-store"))
-                    .finish(),
-            );
-        }
-        None
+    fn gated_response(_port: u16) -> Option<HttpResponse> {
+        Some(
+            HttpResponse::NoContent()
+                .insert_header(("Cache-Control", "no-store"))
+                .finish(),
+        )
     }
 
     pub(super) fn configure(config: &mut web::ServiceConfig) {

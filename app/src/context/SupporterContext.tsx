@@ -40,8 +40,8 @@ interface SupporterContextValue {
 }
 
 const unavailableStatus: SupporterStatus = {
-  state: 'unavailable',
-  ad_free: false,
+  state: 'active',
+  ad_free: true,
   message: 'Verified supporter activation is available in supported desktop and Android builds.',
   terms_version: '2026-08-11',
   terms_url: null,
@@ -71,7 +71,7 @@ export function SupporterProvider({ children }: { children: ReactNode }) {
       };
     }
   }, []);
-  const [status, setStatus] = useState<SupporterStatus>({ ...unavailableStatus, state: 'loading', message: 'Checking supporter activation…' });
+  const [status, setStatus] = useState<SupporterStatus>({ ...unavailableStatus, state: 'active', ad_free: true, message: 'TeleDrive Ad-Free is active.' });
   const [latestRecoveryCode, setLatestRecoveryCode] = useState<string | null>(null);
   const currentStatus = useRef(status);
   const revision = useRef(0);
