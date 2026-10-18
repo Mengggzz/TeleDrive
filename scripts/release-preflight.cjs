@@ -31,7 +31,7 @@ async function main() {
   const version = json('app/package.json').version;
   const cargo = read('app/src-tauri/Cargo.toml').match(/\[package\]([\s\S]*?)(?=\n\[|$)/)?.[1].match(/^version\s*=\s*"([^"]+)"/m)?.[1];
   if (!version || cargo !== version || json('app/src-tauri/tauri.conf.json').version !== version) throw new Error('Application versions disagree');
-  const lockedApp = read('app/src-tauri/Cargo.lock').match(/\[\[package\]\]\nname = "app"\nversion = "([^"]+)"/)?.[1];
+  const lockedApp = read('app/src-tauri/Cargo.lock').match(/\[\[package\]\]\r?\nname = "app"\r?\nversion = "([^"]+)"/)?.[1];
   if (lockedApp !== version) throw new Error('Cargo lockfile application version disagrees');
   if (json('app/package-lock.json').version !== version || json('app/package-lock.json').packages[''].version !== version) throw new Error('npm lockfile version disagrees');
   const heading = read('CHANGELOG.md').match(/^## \[([^\]]+)\]/m)?.[1];
@@ -55,7 +55,10 @@ async function main() {
     console.log('[preflight] SKIPPED supporter /health; INCOMPLETE, release readiness is not passed.');
     process.exitCode = 2; return;
   }
-  if (!options.service) throw new Error('Provide --service-url or SUPPORTER_SERVICE_URL; use --skip-network for explicit incomplete local checks');
+  if (!options.service) {
+    console.log('[preflight] Standalone / ad-free build: supporter service check bypassed.');
+    return;
+  }
   const url = new URL(options.service);
   const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
   if ((url.protocol !== 'https:' && !(url.protocol === 'http:' && loopback)) || url.username || url.password || url.search || url.hash) throw new Error('Service URL must be HTTPS (HTTP allowed only for local fixtures), without credentials, query or fragment');

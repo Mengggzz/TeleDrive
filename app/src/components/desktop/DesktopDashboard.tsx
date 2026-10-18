@@ -53,7 +53,6 @@ import { useSettings } from '../../context/SettingsContext';
 import { useActionScope } from '../../hooks/useActionScope';
 import { useSupporter } from '../../context/SupporterContext';
 import { DEFAULT_SEARCH_FILTERS, filterAndRankFiles, type FileSearchFilters } from '../../services/fileSearch';
-import { useSupporterPrompt } from '../../hooks/useSupporterPrompt';
 import { type SupporterPromptTrigger } from '../../services/supporterVisibility';
 import { markDesktopFrontendReady, markDesktopFrontendUnready, type DesktopNavigationRequest } from '../../services/desktopLifecycle';
 import { fileQueryKey, invalidateFolderFileQueries, refreshFolderFiles, updateFileQueryData } from '../../services/fileListRefresh';
@@ -338,16 +337,6 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
 
     const { uploadQueue, handleManualUpload, handleFolderUpload, handleDropUpload, handleUrlUpload, clearFinished: clearUploads, cancelAll: cancelUploads, pauseAll: pauseUploads, resumeAll: resumeUploads, cancelItem: cancelUploadItem, retryItem: retryUploadItem } = useFileUpload(activeFolderId, store, undefined, undefined, accountId ?? undefined);
     const { downloadQueue, queueDownload, queueBulkDownload, clearFinished: clearDownloads, cancelAll: cancelDownloads, pauseAll: pauseDownloads, resumeAll: resumeDownloads, cancelItem: cancelDownloadItem, retryItem: retryDownloadItem } = useFileDownload(store, undefined, undefined, accountId ?? undefined);
-
-    const showSupporterOffer = useSupporterPrompt(
-        Boolean(!accountId || isLoading || isSyncing || previewFile || playingFile || pdfFile || archiveViewFile
-            || localPreview || showSettings || showMoveModal || shareFile || showRemoteUpload || showHelp
-            || showShortcuts || renameFolder || renameFileTarget || bulkShareLinks || bulkShareLoading
-            || internalDrag || selectedIds.length || workspaceKeys !== null || searchTerm
-            || uploadQueue.some(item => ['pending', 'uploading', 'downloading', 'encrypting', 'verifying'].includes(item.status))
-            || downloadQueue.some(item => ['pending', 'cooldown', 'downloading', 'decrypting', 'verifying'].includes(item.status))),
-        setSupporterOfferTrigger,
-    );
 
     const {
         handleDelete, handleBulkDelete, handleBulkDownload,

@@ -8,7 +8,8 @@
     "RUSTSEC-2026-0119": "Requires upstream grammers support for Hickory 0.26.",
     "RUSTSEC-2026-0253": "The transitive dav-server cache uses non-panicking key types; a major dependency migration is tracked separately.",
     "RUSTSEC-2026-0194": "The affected parser handles repository-controlled Tauri plist metadata, not untrusted XML.",
-    "RUSTSEC-2026-0195": "The affected parser handles repository-controlled Tauri plist metadata, not untrusted XML."
+    "RUSTSEC-2026-0195": "The affected parser handles repository-controlled Tauri plist metadata, not untrusted XML.",
+    "RUSTSEC-2026-0369": "Transitive zip extract symlink permissions; TeleDrive does not use ZipStreamReader extract on untrusted archives."
   },
   "yankedCrates": {
     "chacha20@0.10.0": "Transitive Actix dependency awaiting a compatible lockfile refresh.",
