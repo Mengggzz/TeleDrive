@@ -7,7 +7,7 @@ import { shouldOfferNewSupporterPurchase } from '../../services/supporterVisibil
 import {Trans,useTranslation} from 'react-i18next';
 import {supporterErrorMessage,supporterPaymentMessage,supporterStatusMessage} from '../../services/supporterMessages';
 
-const SUPPORT_URL = 'https://github.com/caamer20/Telegram-Drive/issues/new/choose';
+const SUPPORT_URL = 'https://github.com/Mengggzz/TeleDrive/issues/new/choose';
 
 export function MobileSupporterCard() {
   const {t}=useTranslation();
@@ -18,7 +18,7 @@ export function MobileSupporterCard() {
   const [recoveryCode, setRecoveryCode] = useState('');
   const [newRecoveryCode, setNewRecoveryCode] = useState('');
 
-  const termsUrl = status.terms_url ?? 'https://github.com/caamer20/Telegram-Drive/blob/main/SUPPORTER_TERMS.md';
+  const termsUrl = status.terms_url ?? 'https://github.com/Mengggzz/TeleDrive/blob/main/SUPPORTER_TERMS.md';
   const canPurchase = shouldOfferNewSupporterPurchase(status) && !status.checkout_pending;
   const canRestore = !status.ad_free && !status.checkout_pending && !['loading', 'revoked'].includes(status.state);
   const canRefresh = ['active', 'needs_refresh', 'expired'].includes(status.state);

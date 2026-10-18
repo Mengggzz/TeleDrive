@@ -26,7 +26,7 @@ Never send Telegram API credentials, login codes, session data, phone numbers, f
 
 ## Public bug reports
 
-Non-sensitive reliability and usability issues can be reported through [GitHub Issues](https://github.com/caamer20/Telegram-Drive/issues). Before posting, remove identifiers, private filenames, paths, file contents, credentials, payment information, and recovery material.
+Non-sensitive reliability and usability issues can be reported through [GitHub Issues](https://github.com/Mengggzz/TeleDrive/issues). Before posting, remove identifiers, private filenames, paths, file contents, credentials, payment information, and recovery material.
 
 For the application's data handling and local-server model, read the [Privacy Policy](PRIVACY.md), [REST API reference](REST_API_Documentation.md), and [WebDAV guide](WEBDAV_GUIDE.md). Maintainers changing the supporter path must also preserve the [$5 lifetime supporter license invariants](SUPPORTER_LICENSE_INVARIANTS.md).
 
@@ -34,4 +34,4 @@ See [TDENC2 format and review boundaries](Docs/TDENC2_FORMAT.md) and the [recove
 
 ## Release provenance
 
-After downloading a release artifact, compare its SHA-256 with the same release's `SHA256SUMS.txt`, then run `gh attestation verify ./ARTIFACT --repo caamer20/Telegram-Drive`. Inspect the verified workflow and tag/ref for the intended release. Refuse installation if verification fails or identifies an unexpected producer. See the [release-notes template](Docs/RELEASE_NOTES_TEMPLATE.md). Preflight accepts `--verify-attestation FILE --attestation-repo OWNER/REPO`; no published artifact verification has been run for this tree.
+After downloading a release artifact, compare its SHA-256 with the same release's `SHA256SUMS.txt`, then run `gh attestation verify ./ARTIFACT --repo Mengggzz/TeleDrive`. Inspect the verified workflow and tag/ref for the intended release. Refuse installation if verification fails or identifies an unexpected producer. See the [release-notes template](Docs/RELEASE_NOTES_TEMPLATE.md). Preflight accepts `--verify-attestation FILE --attestation-repo OWNER/REPO`; no published artifact verification has been run for this tree.

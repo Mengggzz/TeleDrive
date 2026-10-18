@@ -1,9 +1,29 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs><linearGradient id="a" x1="8" y1="5" x2="58" y2="61" gradientUnits="userSpaceOnUse"><stop stop-color="#42b8fa"/><stop offset="1" stop-color="#1769d2"/></linearGradient></defs>
-  <rect width="64" height="64" rx="16" fill="url(#a)"/>
-  <rect x=".5" y=".5" width="63" height="63" rx="15.5" stroke="#fff" stroke-opacity=".16"/>
-  <g transform="translate(16 16) scale(1.333)" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
-    <path d="m9 12 2 2 4-4"/>
+  <defs>
+    <linearGradient id="tdBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00A3FF"/>
+      <stop offset="100%" stop-color="#0055D4"/>
+    </linearGradient>
+    <linearGradient id="planeGrad" x1="20" y1="18" x2="48" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#DDF0FF"/>
+    </linearGradient>
+    <filter id="tdGlow" x="8" y="8" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#002D7A" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="64" height="64" rx="16" fill="url(#tdBg)"/>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="15.5" stroke="#FFFFFF" stroke-opacity="0.2"/>
+
+  <!-- TeleDrive Icon: Drive Ring & Telegram Plane -->
+  <g filter="url(#tdGlow)">
+    <!-- Storage Drive / Cloud Base Arc -->
+    <path d="M21 41C16.5 41 13 37.5 13 33C13 29.1 15.7 25.8 19.5 25.1C20.6 20 25.1 16 30.5 16C36.3 16 41.1 20.5 41.8 26.2C45.3 26.8 48 29.8 48 33.5C48 37.6 44.6 41 40.5 41H21Z" fill="#FFFFFF" fill-opacity="0.2"/>
+    
+    <!-- Telegram Paper Plane -->
+    <path d="M47.5 17.5C48.2 16.8 47.7 15.6 46.7 15.9L15.8 27.6C14.9 28 14.9 29.2 15.8 29.5L23.8 32.2L41.2 21.4C41.6 21.1 42.1 21.7 41.7 22L27.5 35.1L27.1 40.8C27.1 41.7 28.2 42.1 28.8 41.4L33.2 37.2L40.8 42.8C41.6 43.4 42.8 43 43 42L47.5 17.5Z" fill="url(#planeGrad)"/>
+    <path d="M27.5 35.1L27.1 40.8C27.1 41.7 28.2 42.1 28.8 41.4L33.2 37.2L27.5 35.1Z" fill="#C4E1FE"/>
   </g>
 </svg>
