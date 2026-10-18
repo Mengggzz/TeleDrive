@@ -22,6 +22,7 @@ ignore = [
   { id = "RUSTSEC-2026-0253", reason = "Transitive dav-server cache uses non-panicking key types and does not wrap key destruction in catch_unwind; major upgrade is tracked separately." },
   { id = "RUSTSEC-2026-0194", reason = "Transitive Tauri plist build/config parser receives repository-controlled application metadata, not uploaded or remote XML." },
   { id = "RUSTSEC-2026-0195", reason = "Transitive Tauri plist build/config parser receives repository-controlled application metadata, not uploaded or remote XML." },
+  { id = "RUSTSEC-2026-0368", reason = "Transitive zip extract symlink target traversal; TeleDrive does not use ZipArchive extract on untrusted archives." },
   { id = "RUSTSEC-2026-0369", reason = "Transitive zip extract symlink permissions; TeleDrive does not use ZipStreamReader extract on untrusted archives." },
 ]
 
