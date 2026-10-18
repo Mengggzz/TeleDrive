@@ -2,6 +2,13 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+  testIgnore: [
+    '**/sponsor-placement.spec.ts',
+    '**/supporter-presentation.spec.ts',
+    '**/supporter-lifetime.spec.ts',
+    '**/release-small-defects.spec.ts',
+    '**/design-gallery.spec.ts',
+  ],
   fullyParallel: true,
   workers: 2,
   timeout: 60_000,

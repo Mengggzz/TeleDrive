@@ -9,6 +9,7 @@
     "RUSTSEC-2026-0253": "The transitive dav-server cache uses non-panicking key types; a major dependency migration is tracked separately.",
     "RUSTSEC-2026-0194": "The affected parser handles repository-controlled Tauri plist metadata, not untrusted XML.",
     "RUSTSEC-2026-0195": "The affected parser handles repository-controlled Tauri plist metadata, not untrusted XML.",
+    "RUSTSEC-2026-0367": "Transitive zip extract SUID/SGID external_attributes permissions; TeleDrive does not extract archives as root.",
     "RUSTSEC-2026-0368": "Transitive zip extract symlink target traversal; TeleDrive does not use ZipArchive extract on untrusted archives.",
     "RUSTSEC-2026-0369": "Transitive zip extract symlink permissions; TeleDrive does not use ZipStreamReader extract on untrusted archives."
   },

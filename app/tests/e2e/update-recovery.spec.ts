@@ -32,7 +32,7 @@ test('a package-manager installation opens release instructions without download
   await expect(page.getByText('A new version (3.9.6) is available!', { exact: true })).toBeVisible({ timeout: 15_000 });
   await page.getByRole('button', { name: 'Open', exact: true }).click();
   await expect.poll(async () => (await nativeCalls(page, 'plugin:opener|open_url')).length).toBe(1);
-  expect((await nativeCalls(page, 'plugin:opener|open_url'))[0].args.url).toBe('https://github.com/caamer20/Telegram-Drive/releases/latest');
+  expect((await nativeCalls(page, 'plugin:opener|open_url'))[0].args.url).toBe('https://github.com/Mengggzz/TeleDrive/releases/latest');
   expect(await nativeCalls(page, 'plugin:updater|download')).toHaveLength(0);
   expect(await nativeCalls(page, 'plugin:updater|install')).toHaveLength(0);
 });
