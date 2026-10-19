@@ -33,7 +33,6 @@ export default function DesignGallery() {
   const localeStress = query.has('locale-stress');
   const sponsorPreview = query.has('sponsor-preview');
   const supporterPreview = query.has('supporter-preview');
-  const supporterPreviewPresentation = query.has('mobile-preview') ? 'bottom-sheet' : 'dialog';
   const activeDirection = localeStress ? getLanguageInfo(auditLanguage).dir : direction;
 
   useEffect(() => {

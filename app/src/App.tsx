@@ -40,11 +40,7 @@ import { consumeWhatsNew, type WhatsNewDetails } from "./services/updateReliabil
 import { useTvSpatialNavigation } from "./hooks/useTvSpatialNavigation";
 import { ensureLanguageResource } from "./i18n";
 import { publishNativeLanguage } from "./services/nativeLanguage";
-import { useSupporter } from "./context/SupporterContext";
-
 type AuthStatus = "loading" | "authenticated" | "unauthenticated" | "sponsor-check" | "ad-gateway";
-
-const AD_GATEWAY_PASSED_KEY = "ad_gateway_passed";
 
 let languageApplyQueue: Promise<void> = Promise.resolve();
 
@@ -65,7 +61,6 @@ function AppContent() {
   const { isTelevision } = usePlatform();
   useTvSpatialNavigation(isTelevision);
   const { settings, updateSetting, isLoaded, persistenceStatus, retryPersistence } = useSettings();
-  const { status: supporterStatus } = useSupporter();
   const { i18n, t } = useTranslation();
 
   useEffect(() => {

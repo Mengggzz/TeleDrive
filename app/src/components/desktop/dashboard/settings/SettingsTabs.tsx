@@ -1,5 +1,5 @@
 import {useTranslation} from 'react-i18next';
-import { lazy, useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Bug, Cloud, Database, Globe, HardDrive, Megaphone, Shield, Zap, Clipboard, Loader2, RefreshCw, Upload, Download } from 'lucide-react';
 import { open } from '@tauri-apps/plugin-shell';
@@ -16,7 +16,6 @@ import {
   type SettingsSyncStatus,
 } from '../../../../services/settingsSync';
 import i18n from '../../../../i18n';
-import { LazyFeatureBoundary } from '../../../shared/LazyFeatureBoundary';
 
 
 const tabMotion = {
@@ -219,12 +218,13 @@ export function PrivacySettingsTab({ crashReportingEnabled, onCrashReportingChan
 }
 
 export function LicenseSettingsTab() {
+  const { t } = useTranslation();
   return (
     <motion.section key="license" {...tabMotion}>
       <div className="rounded-lg border border-app-success/25 bg-app-success/5 p-4">
-        <h3 className="text-sm font-semibold text-app-text">TeleDrive Ad-Free</h3>
+        <h3 className="text-sm font-semibold text-app-text">{t('supporter_license.ad_free_life')}</h3>
         <p className="mt-2 text-xs leading-5 text-app-text-secondary">
-          Versi ini sepenuhnya gratis dan bebas iklan untuk semua pengguna.
+          {t('supporter_license.all_features')}
         </p>
       </div>
     </motion.section>

@@ -8,6 +8,7 @@ export default defineConfig({
     '**/supporter-lifetime.spec.ts',
     '**/release-small-defects.spec.ts',
     '**/design-gallery.spec.ts',
+    '**/localization-ui.spec.ts',
   ],
   fullyParallel: true,
   workers: 2,
