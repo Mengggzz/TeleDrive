@@ -41,7 +41,6 @@ import { useTvSpatialNavigation } from "./hooks/useTvSpatialNavigation";
 import { ensureLanguageResource } from "./i18n";
 import { publishNativeLanguage } from "./services/nativeLanguage";
 import { useSupporter } from "./context/SupporterContext";
-import { shouldShowSponsorContent } from "./services/supporterVisibility";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated" | "sponsor-check" | "ad-gateway";
 
@@ -201,27 +200,10 @@ function AppContent() {
   // gateway is eligible. This prevents any sponsor surface from flashing
   // while a lifetime entitlement or offline-grace token is still loading.
   useEffect(() => {
-    if (authStatus !== "sponsor-check" || supporterStatus.state === "loading") return;
-
-    let cancelled = false;
-    const finishSponsorCheck = async () => {
-      if (!shouldShowSponsorContent(supporterStatus)) {
-        if (!cancelled) setAuthStatus("authenticated");
-        return;
-      }
-
-      try {
-        const store = await load("config.json");
-        const gatewayPassed = await store.get<boolean>(AD_GATEWAY_PASSED_KEY);
-        if (!cancelled) setAuthStatus(gatewayPassed ? "authenticated" : "ad-gateway");
-      } catch {
-        if (!cancelled) setAuthStatus("ad-gateway");
-      }
-    };
-
-    void finishSponsorCheck();
-    return () => { cancelled = true; };
-  }, [authStatus, supporterStatus.ad_free, supporterStatus.state]);
+    if (authStatus === "sponsor-check") {
+      setAuthStatus("authenticated");
+    }
+  }, [authStatus]);
 
   // Show thank-you toast when user enters the app after clicking the ad
   useEffect(() => {

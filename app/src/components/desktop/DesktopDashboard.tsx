@@ -53,7 +53,6 @@ import { useSettings } from '../../context/SettingsContext';
 import { useActionScope } from '../../hooks/useActionScope';
 import { useSupporter } from '../../context/SupporterContext';
 import { DEFAULT_SEARCH_FILTERS, filterAndRankFiles, type FileSearchFilters } from '../../services/fileSearch';
-import { type SupporterPromptTrigger } from '../../services/supporterVisibility';
 import { markDesktopFrontendReady, markDesktopFrontendUnready, type DesktopNavigationRequest } from '../../services/desktopLifecycle';
 import { fileQueryKey, invalidateFolderFileQueries, refreshFolderFiles, updateFileQueryData } from '../../services/fileListRefresh';
 import { getAdjacentPreview, previewFileKey, samePreviewFile as sameFile } from '../../services/previewNavigation';
@@ -65,7 +64,6 @@ const LazyMediaPlayer = lazy(() => import('./dashboard/MediaPlayer').then((modul
 const LazyPdfViewer = lazy(() => import('./dashboard/PdfViewer').then((module) => ({ default: module.PdfViewer })));
 const LazyArchiveViewerModal = lazy(() => import('./dashboard/ArchiveViewerModal').then((module) => ({ default: module.ArchiveViewerModal })));
 const LazySettingsModal = lazy(() => import('./dashboard/SettingsModal').then((module) => ({ default: module.SettingsModal })));
-const SupporterOfferDialog = lazy(() => import('../shared/SupporterOfferDialog').then(module => ({ default: module.SupporterOfferDialog })));
 const LazyHelpCenterDialog = lazy(() => import('./dashboard/HelpCenterDialog').then((module) => ({ default: module.HelpCenterDialog })));
 const LazyWorkspaceHub = lazy(() => import('../workspace/WorkspaceHub').then(module => ({ default: module.WorkspaceHub })));
 
@@ -128,7 +126,6 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
     const [transferCenterOpenRequest, setTransferCenterOpenRequest] = useState(0);
     const [showShortcuts, setShowShortcuts] = useState(false);
     const [showHelp, setShowHelp] = useState(false);
-    const [supporterOfferTrigger, setSupporterOfferTrigger] = useState<SupporterPromptTrigger | null>(null);
     const [createFolderRequest, setCreateFolderRequest] = useState(0);
     const [activeSmartView, setActiveSmartView] = useState<SmartView | null>('recents');
     const [insightSummary, setInsightSummary] = useState<{ scope: string; count: number; complete: boolean } | null>(null);
@@ -508,7 +505,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
         onRename: handleKeyboardRename,
         onShowShortcuts: () => setShowShortcuts(true),
         enabled: !previewFile && !playingFile && !pdfFile && !archiveViewFile
-            && !showMoveModal && !showSettings && !showShortcuts && !showHelp && !supporterOfferTrigger && workspaceKeys === null
+            && !showMoveModal && !showSettings && !showShortcuts && !showHelp && workspaceKeys === null
             && !showRemoteUpload && !shareFile && !bulkShareLinks
             && settings.driveTourSeen
     });
@@ -1029,13 +1026,7 @@ export function Dashboard({ onLogout }: { onLogout: () => void }) {
 
             {showHelp && <LazyFeatureBoundary><LazyHelpCenterDialog onClose={() => setShowHelp(false)} /></LazyFeatureBoundary>}
 
-            {supporterOfferTrigger && (
-                <LazyFeatureBoundary><SupporterOfferDialog
-                    trigger={supporterOfferTrigger}
-                    onClose={() => setSupporterOfferTrigger(null)}
-                    onOpenSupporter={() => { setSupporterOfferTrigger(null); setSettingsInitialTab('license'); setFocusSupporter(true); setShowSettings(true); }}
-                /></LazyFeatureBoundary>
-            )}
+
 
             {shareFile && shareOwnerId && (
                 <LazyFeatureBoundary>

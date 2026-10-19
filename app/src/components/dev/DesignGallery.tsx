@@ -5,7 +5,6 @@ import { useTheme } from '../../context/ThemeContext';
 import { getLanguageInfo, type SupportedLanguage } from '../../i18n/languages';
 import { ensureLanguageResource } from '../../i18n';
 import { DesktopAdBanner } from '../desktop/dashboard/DesktopAdBanner';
-import { SupporterOfferDialog } from '../shared/SupporterOfferDialog';
 import {
   Badge,
   Button,
@@ -60,17 +59,7 @@ export default function DesignGallery() {
   }
 
   if (supporterPreview) {
-    return (
-      <main className="h-screen overflow-hidden bg-app-canvas p-8 text-app-text">
-        <h1 className="text-xl font-semibold">Supporter offer preview</h1>
-        <SupporterOfferDialog
-          trigger="ad_dismissed"
-          presentation={supporterPreviewPresentation}
-          onClose={() => undefined}
-          onOpenSupporter={() => undefined}
-        />
-      </main>
-    );
+    return null;
   }
 
   return (

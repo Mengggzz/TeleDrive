@@ -13,8 +13,6 @@ import { DriveConceptTour } from '../desktop/dashboard/DriveConceptTour';
 import { ActionPopover, ActionItem } from './ActionPopover';
 import { ShareDialog } from '../desktop/dashboard/ShareDialog';
 import { RenameFolderSheet } from './RenameFolderSheet';
-import { MobileSupporterCard } from './MobileSupporterCard';
-import { SupporterOfferDialog } from '../shared/SupporterOfferDialog';
 import { usePlatform } from '../../hooks/usePlatform';
 import { useTelegramConnection } from '../../hooks/useTelegramConnection';
 import { useFileUpload } from '../../hooks/useFileUpload';
@@ -34,12 +32,6 @@ import { BandwidthWidget } from '../desktop/dashboard/BandwidthWidget';
 import type { OfflineCacheStatus } from '../../types';
 import { evaluateAndroidTransferPolicy, type AndroidTransferEnvironment } from '../../services/androidTransferPolicy';
 import { effectiveVideoUploadMode } from '../../services/videoUploadMode';
-import {
-  shouldOfferNewSupporterPurchase,
-  shouldShowSupporterPrompt,
-  SUPPORTER_VALUE_MOMENT_EVENT,
-  type SupporterPromptTrigger,
-} from '../../services/supporterVisibility';
 import i18n from '../../i18n';
 
 const LazyHelpCenterDialog = lazy(() => import('../desktop/dashboard/HelpCenterDialog').then((module) => ({ default: module.HelpCenterDialog })));
@@ -87,7 +79,6 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
   const { settings, updateSetting, isLoaded: settingsLoaded } = useSettings();
   const { status: supporterStatus } = useSupporter();
   const [showHelp, setShowHelp] = useState(false);
-  const [supporterOfferTrigger, setSupporterOfferTrigger] = useState<SupporterPromptTrigger | null>(null);
 
   // ── Android deep-link listener (https://t.me/ links) ──────────────────
   useEffect(() => {
@@ -366,7 +357,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
   // Keep it suppressed during media, previews, dialogs, and active transfers so it
   // never covers playback controls or interrupts a bandwidth-sensitive operation.
   const adVisible = !playingFile && !pdfFile && !previewFile && !shareFile && !bulkShareLinks
-    && !showHelp && !supporterOfferTrigger && settings.driveTourSeen
+    && !showHelp && settings.driveTourSeen
     && !uploadQueue.some(item => ['pending', 'uploading', 'downloading', 'encrypting', 'verifying'].includes(item.status))
     && !downloadQueue.some(item => ['pending', 'cooldown', 'downloading', 'decrypting', 'verifying'].includes(item.status));
 
@@ -571,56 +562,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
   const [folderActionMenu, setFolderActionMenu] = useState<TelegramFolder | null>(null);
   const [renameFolder, setRenameFolder] = useState<{ id: number; name: string } | null>(null);
 
-  const openMobileSupporter = useCallback(() => {
-    setSupporterOfferTrigger(null);
-    setActiveTab('settings');
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        document.getElementById('mobile-supporter-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  }, []);
 
-  const showSupporterOffer = useCallback((trigger: SupporterPromptTrigger) => {
-    if (!settingsLoaded || !settings.driveTourSeen) return;
-    if (!shouldShowSupporterPrompt(supporterStatus, settings.supporterPromptLastShownAt)) return;
-    if (document.querySelector('[role="dialog"][aria-modal="true"]')) return;
-    if (playingFile || pdfFile || previewFile || shareFile || bulkShareLinks || showHelp
-      || folderActionMenu || renameFolder || isSidebarOpen) return;
-
-    updateSetting('supporterPromptLastShownAt', Date.now());
-    setSupporterOfferTrigger(trigger);
-  }, [
-    bulkShareLinks,
-    folderActionMenu,
-    isSidebarOpen,
-    pdfFile,
-    playingFile,
-    previewFile,
-    renameFolder,
-    settings.driveTourSeen,
-    settings.supporterPromptLastShownAt,
-    settingsLoaded,
-    shareFile,
-    showHelp,
-    supporterStatus,
-    updateSetting,
-  ]);
-
-  useEffect(() => {
-    if (supporterStatus.ad_free) setSupporterOfferTrigger(null);
-  }, [supporterStatus.ad_free]);
-
-  useEffect(() => {
-    const handleValueMoment = (event: Event) => {
-      const moment = (event as CustomEvent<{ moment?: SupporterPromptTrigger }>).detail?.moment;
-      if (moment === 'upload_completed' || moment === 'download_completed') {
-        showSupporterOffer(moment);
-      }
-    };
-    window.addEventListener(SUPPORTER_VALUE_MOMENT_EVENT, handleValueMoment);
-    return () => window.removeEventListener(SUPPORTER_VALUE_MOMENT_EVENT, handleValueMoment);
-  }, [showSupporterOffer]);
 
   const handleFolderVisibilityToggle = useCallback(async (folder: TelegramFolder) => {
     const isPublic = folder.is_public || !!folder.username;
@@ -839,8 +781,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
     if (!isAndroid) return;
     const androidWindow = window as typeof window & { __telegramDriveHandleAndroidBack?: () => boolean };
     androidWindow.__telegramDriveHandleAndroidBack = () => {
-      if (supporterOfferTrigger) { setSupporterOfferTrigger(null); return true; }
-      if (playingFile) { setPlayingFile(null); return true; }
+            if (playingFile) { setPlayingFile(null); return true; }
       if (pdfFile) { setPdfFile(null); return true; }
       if (previewFile) { setPreviewFile(null); return true; }
       if (shareFile) { setShareFile(null); return true; }
@@ -855,7 +796,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
       return false;
     };
     return () => { delete androidWindow.__telegramDriveHandleAndroidBack; };
-  }, [activeFolderId, activeTab, bulkShareLinks, folderActionMenu, isAndroid, isSidebarOpen, pdfFile, playingFile, previewFile, renameFolder, selectedIds.length, setActiveFolderId, shareFile, showHelp, supporterOfferTrigger]);
+  }, [activeFolderId, activeTab, bulkShareLinks, folderActionMenu, isAndroid, isSidebarOpen, pdfFile, playingFile, previewFile, renameFolder, selectedIds.length, setActiveFolderId, shareFile, showHelp]);
 
   return (
     <div className={`absolute inset-0 flex flex-col bg-telegram-bg text-telegram-text overflow-hidden select-none font-sans ${isTelevision ? 'tv-shell' : ''}`}>
@@ -1022,22 +963,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
 
         {activeTab === 'settings' && (
           <div className="space-y-4">
-            {shouldOfferNewSupporterPurchase(supporterStatus) && !supporterStatus.checkout_pending && (
-              <button
-                type="button"
-                onClick={openMobileSupporter}
-                className="flex w-full items-center gap-3 rounded-2xl border border-telegram-primary/30 bg-gradient-to-r from-telegram-primary/15 to-telegram-hover/20 p-4 text-left shadow-sm transition-transform active:scale-[0.99]"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-telegram-primary/20 text-telegram-primary">
-                  <Heart className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-xs font-bold text-telegram-text">{t('supporter_license.title')}</span>
-                  <span className="mt-0.5 block text-[10px] leading-4 text-telegram-subtext">{t('supporter_license.mobile_description')}</span>
-                </span>
-                <span className="text-lg text-telegram-primary" aria-hidden="true">›</span>
-              </button>
-            )}
+
             <div className="p-4 rounded-2xl bg-telegram-hover/20 border border-telegram-border/30 space-y-4">
               <h3 className="text-sm font-bold text-telegram-primary tracking-wide uppercase text-[10px]">{t('common.preferences')}</h3>
               <div className="flex items-center justify-between py-2 border-b border-telegram-border/20">
@@ -1431,9 +1357,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
                 <Shield className="h-3 w-3" aria-hidden="true" />
                 Privacy &amp; support
               </h3>
-              <div id="mobile-supporter-card" className="scroll-mt-24">
-                <MobileSupporterCard />
-              </div>
+
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
@@ -1466,15 +1390,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
                 <div className="w-10 h-px bg-telegram-border" />
 
                 <div className="text-center space-y-2.5">
-                  <p className="text-xs font-semibold text-telegram-text">Cameron Amer</p>
-
-                  <button
-                    onClick={(e) => { e.preventDefault(); openUrl('https://www.cameronamer.com'); }}
-                    className="flex items-center justify-center gap-1.5 text-[11px] text-telegram-primary hover:text-telegram-primary/80 transition-colors cursor-pointer"
-                  >
-                    <Globe className="w-3 h-3" />
-                    www.cameronamer.com
-                  </button>
+                  <p className="text-xs font-semibold text-telegram-text">Mengggzz</p>
 
                   <button
                     onClick={(e) => { e.preventDefault(); openUrl('https://github.com/Mengggzz/TeleDrive'); }}
@@ -1683,14 +1599,7 @@ export default function MobileDashboard({ onLogout }: { onLogout?: () => void })
 
       {showHelp && <LazyFeatureBoundary><LazyHelpCenterDialog onClose={() => setShowHelp(false)} /></LazyFeatureBoundary>}
 
-      {supporterOfferTrigger && (
-        <SupporterOfferDialog
-          trigger={supporterOfferTrigger}
-          presentation={isTelevision ? 'tv-dialog' : 'bottom-sheet'}
-          onClose={() => setSupporterOfferTrigger(null)}
-          onOpenSupporter={openMobileSupporter}
-        />
-      )}
+
 
       {/* Bulk Share Results Modal */}
       {bulkShareLinks && (

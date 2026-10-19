@@ -731,7 +731,7 @@ function OwnedSettingsModal({ ownerId, isOpen, onClose, initialTab = 'general', 
                                 [t('ui_copy.nav_security'), [['privacy', Bug, 'Privacy telemetry crash reports consent'], ['encryption', Shield, 'Encryption vault security auto lock']] as const],
                                 [t('ui_copy.nav_connections'), [['sync', FolderSync, 'Folder sync local directories Telegram channels'], ['sharing', Link, 'Sharing links local server']] as const],
                                 [t('settings.tab_advanced'), [['advanced', Gauge, 'REST API proxy VPN WebDAV network integration Finder token port']] as const],
-                                [t('ui_copy.nav_support'), [['license', Key, 'Supporter lifetime license ad-free ads $5 PayPal recovery purchase'], ['about', Info, 'About diagnostics version updates']] as const],
+                                [t('ui_copy.nav_support'), [['license', Key, 'License ad-free status'], ['about', Info, 'About diagnostics version updates']] as const],
                             ] as const).map(([group, items]) => {
                                 const visibleItems = items.filter(([key, , keywords]) => `${key} ${keywords} ${tabLabel(key)}`.toLowerCase().includes(settingsSearch.trim().toLowerCase()));
                                 if (visibleItems.length === 0) return null;

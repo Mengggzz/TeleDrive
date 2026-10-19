@@ -6,13 +6,12 @@
     },
     "updater": {
       "endpoints": [
-        "https://github.com/Mengggzz/TeleDrive/releases/latest/download/latest.json",
-        "https://telegram-drive.com/updates/latest.json"
+        "https://github.com/Mengggzz/TeleDrive/releases/latest/download/latest.json"
       ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDUwN0I3MDBFMzQ5Nzk2M0MKUldROGxwYzBEbkI3VUwwOE13MURPOUtGWWVNTGNkaFZ3WEg0MHFoR0JMSlVjNXBwYksxWEhNMkoK"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1MDFCNEQ0RkQ1MUZFNUIKUldSMUFiVFUvVkgrVzlVSFNyK3cvR0hjZlM5eVpKcmFtd0VLM3lFWEJ3YmpidDRsdENGY3psMUUK"
     }
   },
-  "productName": "Telegram Drive",
+  "productName": "TeleDrive",
   "version": "4.1.2",
   "identifier": "com.cameronamer.telegramdrive",
   "build": {

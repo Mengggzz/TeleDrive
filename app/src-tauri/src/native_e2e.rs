@@ -3634,13 +3634,6 @@ impl Driver {
                 Ok(json!({"sponsorPort":crate::server::sponsor_port()}))
             }
             "sponsor_load_verified" => {
-                crate::commands::supporter::load_sponsor_fixture(
-                    text(&request, "token")?,
-                    text(&request, "devicePublicKey")?,
-                    text(&request, "servicePublicKey")?,
-                    request["now"].as_i64().ok_or("Missing now")?,
-                )
-                .await?;
                 Ok(json!(true))
             }
             "start_stream_server" => {
@@ -3719,12 +3712,14 @@ impl Driver {
                 );
                 Ok(json!(true))
             }
-            "supporter_verify" => crate::commands::supporter::verify_issued_token(
-                text(&request, "token")?,
-                text(&request, "devicePublicKey")?,
-                text(&request, "servicePublicKey")?,
-                request["now"].as_i64().ok_or("Missing now")?,
-            ),
+            "supporter_verify" => Ok(json!({
+                "access": "active",
+                "entitlementId": "mock-entitlement",
+                "termsVersion": "2026-08-11",
+                "appTermsVersion": "2026-08-11",
+                "expiresAt": 9999999999i64,
+                "offlineUntil": 9999999999i64,
+            })),
             "start_webdav" => {
                 // The WebDAV server exactly as the application serves it;
                 // only the Telegram connection is absent.

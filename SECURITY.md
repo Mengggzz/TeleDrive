@@ -4,7 +4,7 @@ Telegram Drive handles Telegram sessions, local file access, optional encryption
 
 ## Report a vulnerability privately
 
-Do not open a public GitHub issue for a vulnerability or suspected credential exposure. Contact the maintainer through [cameronamer.com](https://www.cameronamer.com) to arrange private disclosure.
+Do not open a public GitHub issue for a vulnerability or suspected credential exposure. Contact the maintainer via [GitHub](https://github.com/Mengggzz) to arrange private disclosure.
 
 Include only the information needed to understand the report:
 
@@ -28,7 +28,7 @@ Never send Telegram API credentials, login codes, session data, phone numbers, f
 
 Non-sensitive reliability and usability issues can be reported through [GitHub Issues](https://github.com/Mengggzz/TeleDrive/issues). Before posting, remove identifiers, private filenames, paths, file contents, credentials, payment information, and recovery material.
 
-For the application's data handling and local-server model, read the [Privacy Policy](PRIVACY.md), [REST API reference](REST_API_Documentation.md), and [WebDAV guide](WEBDAV_GUIDE.md). Maintainers changing the supporter path must also preserve the [$5 lifetime supporter license invariants](SUPPORTER_LICENSE_INVARIANTS.md).
+For the application's data handling and local-server model, read the [Privacy Policy](PRIVACY.md), [REST API reference](REST_API_Documentation.md), and [WebDAV guide](WEBDAV_GUIDE.md).
 
 See [TDENC2 format and review boundaries](Docs/TDENC2_FORMAT.md) and the [recovery drill](Docs/ENCRYPTION_RECOVERY_DRILL.md). Independent cryptographic review remains an owner-commissioned release boundary.
 

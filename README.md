@@ -251,19 +251,9 @@ TeleDrive supports a **System** language preference and these 24 selectable loca
 
 Locale selection and formatting are production-supported. Authentication, encryption, desktop supporter copy and visible data arrays use canonical translations, and the eleven large locales have zero copied-English findings. Mobile follow-up changes remain local under the owner’s pre-commit hook. Noncritical English copy and full native-language, legal-copy, RTL, long-string, CJK and device review remain outstanding; see [the measured locale review](Docs/LOCALIZATION_BUDGET_REVIEW.md).
 
-## Optional $5 lifetime ad-free supporter license
+## 100% Free and Ad-Free
 
-Every TeleDrive feature is available to non-paying users. Supported desktop and Android builds offer an optional **$5.00 USD Lifetime Ad-Free Supporter License** that removes sponsor placements on up to three supported Windows, macOS, Linux, or Android devices in total after one verified PayPal payment.
-
-- It is a one-time purchase, **not a subscription**.
-- Existing purchasers are not required to pay again after normal application updates.
-- Active and offline-grace entitlements keep sponsor placements hidden.
-- Reinstallation or another device can be restored with the recovery code, subject to the three-device allowance.
-- Checkout is available only inside **Settings → Privacy → Supporter**.
-- Payment does not create a TeleDrive account or purchaser email profile.
-
-> [!WARNING]
-> Save the recovery code shown after activation. Payment alone does not bypass verification. Refunds are not automatic or guaranteed except where required by law. A refund, payment reversal, chargeback, or upheld dispute revokes the associated ad-free entitlement. Read the [Supporter Terms](SUPPORTER_TERMS.md) before paying.
+TeleDrive is completely free and open-source. All features, cloud integrations, and interfaces are available to every user with no ads, no sponsor banners, no paywalls, and no subscriptions.
 
 ## Android and Google TV (signed APK)
 
@@ -313,15 +303,11 @@ Do not expose these ports to a LAN or the internet. See the [REST API endpoint r
 | [REST API reference](REST_API_Documentation.md) | Authentication, endpoints, request examples, and error responses |
 | [Linux packaging guide](Docs/LINUX_PACKAGING.md) | Linux formats, Arch installation, rendering safe mode, diagnostics, and release safeguards |
 | [Linux/Arch implementation plan](Docs/LINUX_ARCH_IMPLEMENTATION_PLAN.md) | Design decisions, compatibility rules, release gates, acceptance matrix, and rollback |
-| [Supporter Terms](SUPPORTER_TERMS.md) | Activation, recovery, device allowance, refunds, availability, and privacy |
 
 ### Maintainer and release documentation
 
 | Document | Purpose |
 | --- | --- |
-| [Supporter license invariants](SUPPORTER_LICENSE_INVARIANTS.md) | Protected $5 lifetime-license compatibility contract and required verification |
-| [Supporter service operations](SUPPORTER_SERVICE.md) | Worker, PayPal, D1, secure configuration, and release checks |
-| [Supporter backup and recovery](SUPPORTER_BACKUP_RECOVERY.md) | D1 backup provisioning, restore drills, and production recovery |
 | [Android and Google TV release runbook](Docs/ANDROID_SIDELOAD_RELEASE.md) | Signing, packaging, acceptance, and sideload-release checks |
 | [Desktop code signing](Docs/CODE_SIGNING.md) | macOS notarization and Windows Authenticode settings, and first-signed-release acceptance |
 
