@@ -127,7 +127,7 @@ jobs:
 
           ## Verify artifacts
           Compare the downloaded artifact with SHA256SUMS.txt, then run:
-          `gh attestation verify ./ARTIFACT --repo caamer20/Telegram-Drive`
+          `gh attestation verify ./ARTIFACT --repo Mengggzz/TeleDrive`
           Inspect the verified producer workflow and tag/ref before installing.
           Source and Arch runtime SBOMs and Sigstore bundles accompany this release.
           NOTES

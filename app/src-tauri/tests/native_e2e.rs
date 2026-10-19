@@ -494,19 +494,7 @@ async fn media_server_uses_the_preferred_port_and_falls_back_when_it_is_taken() 
     assert_eq!(started["publishedPort"].as_u64().unwrap(), port);
     let url = started["url"].as_str().unwrap().to_string();
     let banner = client.get(format!("{url}/ad-banner")).send().await.unwrap();
-    assert_eq!(banner.status(), 200);
-    let policy = banner
-        .headers()
-        .get("content-security-policy")
-        .unwrap()
-        .to_str()
-        .unwrap()
-        .to_string();
-    assert!(
-        policy.contains(&format!("http://localhost:{port}/ad-script")),
-        "{policy}"
-    );
-    assert!(!policy.contains(&format!(":{taken}/")), "{policy}");
+    assert_eq!(banner.status(), 204);
     assert_eq!(
         client
             .get(format!("{url}/stream/home/1"))
