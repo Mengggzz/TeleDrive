@@ -4,13 +4,12 @@ async function upsertDraft(github, context, tag, body) {
   const policy = tagPolicy(tag), repo = context.repo;
   const releases = await github.paginate(github.rest.repos.listReleases, { ...repo, per_page: 100 });
   const matches = releases.filter(release => release.tag_name === tag);
-  if (matches.length > 0) {
-    const release = matches[0];
-    await github.rest.repos.updateRelease({ ...repo, release_id: release.id, body, name: `TeleDrive ${tag}` });
-    return release.id;
-  }
+  if (matches.some(release => !release.draft)) throw new Error('Tag is already published; refusing to turn it back into a draft');
+  if (matches.length > 1) throw new Error('Multiple matching drafts require owner reconciliation');
   const data = { ...repo, body, draft: true, prerelease: policy.prerelease, make_latest: 'false' };
-  const response = await github.rest.repos.createRelease({ ...data, tag_name: tag, name: `TeleDrive ${tag}` });
+  const response = matches.length
+    ? await github.rest.repos.updateRelease({ ...data, release_id: matches[0].id })
+    : await github.rest.repos.createRelease({ ...data, tag_name: tag, name: `TeleDrive ${tag}` });
   return response.data.id;
 }
 async function publish(github, context, releaseId, tag) {

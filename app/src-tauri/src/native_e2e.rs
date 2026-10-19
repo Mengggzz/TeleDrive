@@ -3633,9 +3633,7 @@ impl Driver {
                 task.await.map_err(error)?.map_err(error)?;
                 Ok(json!({"sponsorPort":crate::server::sponsor_port()}))
             }
-            "sponsor_load_verified" => {
-                Ok(json!(true))
-            }
+            "sponsor_load_verified" => Ok(json!(true)),
             "start_stream_server" => {
                 // Production bind path: the preferred port, or an assigned one
                 // when another process already holds it.
