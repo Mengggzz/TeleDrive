@@ -5602,6 +5602,7 @@ async fn traffic_delivered_protected_media_renews_activity_and_idle_media_does_n
 }
 
 #[tokio::test]
+#[ignore = "Ad and supporter systems removed in standalone ad-free TeleDrive"]
 async fn sponsor_origins_only_hide_requests_after_verified_active_or_grace_access() {
     use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
     use ed25519_dalek::{Signer, SigningKey};
@@ -5752,6 +5753,7 @@ async fn sponsor_origins_only_hide_requests_after_verified_active_or_grace_acces
 }
 
 #[tokio::test]
+#[ignore = "Ad and supporter systems removed in standalone ad-free TeleDrive"]
 async fn supporter_verification_suppresses_inflight_and_stale_ad_relay_bodies_until_signed_deadline(
 ) {
     use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
