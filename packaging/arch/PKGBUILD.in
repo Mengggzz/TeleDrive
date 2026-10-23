@@ -67,7 +67,7 @@ package() {
   mv "${pkgdir}/usr/bin/app" "${pkgdir}/usr/lib/telegram-drive/app"
   install -Dm755 "${srcdir}/telegram-drive" "${pkgdir}/usr/bin/telegram-drive"
 
-  rm -f "${pkgdir}/usr/share/applications/Telegram Drive.desktop"
+  rm -f "${pkgdir}/usr/share/applications/"*.desktop
   install -Dm644 \
     "${srcdir}/com.cameronamer.telegramdrive.desktop" \
     "${pkgdir}/usr/share/applications/com.cameronamer.telegramdrive.desktop"

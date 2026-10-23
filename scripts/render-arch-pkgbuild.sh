@@ -20,9 +20,9 @@ if [[ ! "${version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exit 1
 fi
 
-expected_name="Telegram.Drive_${version}_amd64.deb"
-if [[ "$(basename "${deb_path}")" != "${expected_name}" ]]; then
-  echo "Expected ${expected_name}, received $(basename "${deb_path}")" >&2
+expected_name="$(basename "${deb_path}")"
+if [[ ! "${expected_name}" =~ ^(TeleDrive|Telegram\.Drive)_${version}_amd64\.deb$ ]]; then
+  echo "Expected (TeleDrive|Telegram.Drive)_${version}_amd64.deb, received ${expected_name}" >&2
   exit 1
 fi
 
