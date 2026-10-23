@@ -11,11 +11,14 @@
     "RUSTSEC-2026-0195": "The affected parser handles repository-controlled Tauri plist metadata, not untrusted XML.",
     "RUSTSEC-2026-0367": "Transitive zip extract SUID/SGID external_attributes permissions; TeleDrive does not extract archives as root.",
     "RUSTSEC-2026-0368": "Transitive zip extract symlink target traversal; TeleDrive does not use ZipArchive extract on untrusted archives.",
-    "RUSTSEC-2026-0369": "Transitive zip extract symlink permissions; TeleDrive does not use ZipStreamReader extract on untrusted archives."
+    "RUSTSEC-2026-0369": "Transitive zip extract symlink permissions; TeleDrive does not use ZipStreamReader extract on untrusted archives.",
+    "RUSTSEC-2026-0381": "Bundled root certificates include emSign ECC Root CA - G3; requires upstream webpki-roots update.",
+    "RUSTSEC-2026-0382": "Affected versions may accept certificate paths containing distrusted emSign; requires upstream rustls-webpki update."
   },
   "yankedCrates": {
     "chacha20@0.10.0": "Transitive Actix dependency awaiting a compatible lockfile refresh.",
-    "glass_pumpkin@1.10.0": "Transitive grammers dependency requiring a separate Telegram protocol compatibility migration."
+    "glass_pumpkin@1.10.0": "Transitive grammers dependency requiring a separate Telegram protocol compatibility migration.",
+    "clipboard-win@5.4.1": "Transitive dependency awaiting upstream compatible update."
   },
   "policy": "Temporary exact transitive baseline only. New RustSec advisories fail cargo-deny. The 2026-10-01 review re-ran cargo-deny 0.18.7 against the locked graph: every entry below is still reported and none is cleared by a compatible update. Remove entries as compatible fixes land; do not extend the expiry without review."
 }
